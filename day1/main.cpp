@@ -34,22 +34,22 @@ int part2(const std::vector<std::string> &lines)
     /**
      * Create a map of substrings to look for and the
      */
-    std::vector<std::string> digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-    std::vector<std::string> words = {"zero", "one", "two", "three", "four", "five", "six", "seven",
+    std::vector<std::string> digits = {"1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    std::vector<std::string> words = {"one", "two", "three", "four", "five", "six", "seven",
                                       "eight", "nine"};
     std::map<std::string, int> numbers;
-    for (int i = 0; i < 10; i++)
+    for (int i = 0; i < 9; i++)
     {
-        numbers[digits[i]] = i;
-        numbers[words[i]] = i;
+        numbers[digits[i]] = i + 1;
+        numbers[words[i]] = i + 1;
     }
     // Calculate sum from lines
     int sum = 0;
     for (std::string line : lines)
     {
-        int digit1;
-        int firstIndex = sizeof(line);
-        int digit2;
+        int digit1 = 0;
+        int firstIndex = line.length();
+        int digit2 = 0;
         int lastIndex = -1;
         for (auto it = numbers.begin(); it != numbers.end(); it++)
         {
