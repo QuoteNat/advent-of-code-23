@@ -2,6 +2,7 @@
 #include <fstream>
 #include <vector>
 #include <sstream>
+#include <map>
 
 /// @brief Solution to part 1
 /// @param lines Lines of the input file
@@ -26,6 +27,22 @@ int part1(const std::vector<std::string> &lines)
         sum += std::stoi(numString);
     }
     return sum;
+}
+
+int part2(const std::vector<std::string> &lines)
+{
+    /**
+     * Create a map of substrings to look for and the
+     */
+    std::string digits[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    std::string words[] = {"zero", "one", "two", "three", "four", "five", "six", "seven",
+                           "eight", "nine"};
+    std::map<std::string, int> numbers;
+    for (int i = 0; i < sizeof(digits); i++)
+    {
+        numbers[digits[i]] = i;
+        numbers[words[i]] = i;
+    }
 }
 
 int main()
