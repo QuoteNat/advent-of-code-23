@@ -34,15 +34,47 @@ int part2(const std::vector<std::string> &lines)
     /**
      * Create a map of substrings to look for and the
      */
-    std::string digits[] = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-    std::string words[] = {"zero", "one", "two", "three", "four", "five", "six", "seven",
-                           "eight", "nine"};
+    std::vector<std::string> digits = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
+    std::vector<std::string> words = {"zero", "one", "two", "three", "four", "five", "six", "seven",
+                                      "eight", "nine"};
     std::map<std::string, int> numbers;
-    for (int i = 0; i < sizeof(digits); i++)
+    for (int i = 0; i < 10; i++)
     {
         numbers[digits[i]] = i;
         numbers[words[i]] = i;
     }
+    // Calculate sum from lines
+    int sum = 0;
+    for (std::string line : lines)
+    {
+        int digit1;
+        int firstIndex = sizeof(line);
+        int digit2;
+        int lastIndex = -1;
+        for (auto it = numbers.begin(); it != numbers.end(); it++)
+        {
+            // Find the number substring closest to the start
+            int index = line.find(it->first);
+            if (index != std::string::npos && index < firstIndex)
+            {
+                firstIndex = index;
+                digit1 = it->second;
+            }
+
+            // Find the number substring closest to the end
+            index = line.rfind(it->first);
+            if (index != std::string::npos && index > lastIndex)
+            {
+                lastIndex = index;
+                digit2 = it->second;
+            }
+        }
+
+        // Fun with base 10
+        sum += 10 * digit1 + digit2;
+    }
+
+    return sum;
 }
 
 int main()
@@ -62,5 +94,6 @@ int main()
     input.close();
 
     std::cout << "(Part 1) Sum of all calibration values is: " << part1(lines) << std::endl;
+    std::cout << "(Part 2) Sum of all calibration values is: " << part2(lines) << std::endl;
     return 0;
 }
